@@ -4,7 +4,7 @@ Este projeto é uma API genérica de sistema de restaurante. Contempla a marcaç
 
 ## Mapa de entidades
 
-´´´mermaid
+```mermaid
 classDiagram
     class Cliente {
         +id: int
@@ -41,11 +41,11 @@ classDiagram
     Mesa "1" --> "0..*" Pedido : recebe
     Pedido "1" --> "1..*" Produto : contém
     Pedido "1" --> "0..1" CupomFiscal : gera
-´´´
+```
 
 ## Diagrama de estado do Pedido
 
-´´´mermaid
+```mermaid
 stateDiagram-v2
     [*] --> Aberto : Cliente faz pedido
 
@@ -55,11 +55,11 @@ stateDiagram-v2
     Aberto : Pedido em andamento
     Fechado : Conta fechada, aguardando pagamento
     Recebido : Conta paga
-´´´
+```
 
 ## Diagrama de estado da mesa
 
-´´´mermaid
+```mermaid
 stateDiagram-v2
     [*] --> Livre : Sem pedidos abertos
 
@@ -68,4 +68,4 @@ stateDiagram-v2
 
     Livre : Mesa disponível
     Ocupada : Mesa em uso (pedido aberto)
-´´´
+```
