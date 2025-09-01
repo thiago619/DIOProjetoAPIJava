@@ -69,3 +69,20 @@ stateDiagram-v2
     Livre : Mesa disponível
     Ocupada : Mesa em uso (pedido aberto)
 ```
+
+## Rotas
+
+- GET /v1/produto
+  Lista todos os produtos
+
+- GET /v1/produto/:id
+  Retorna um produto
+
+- POST /v1/produto
+  Cria um produto
+
+- PUT /v1/produto/:id
+  Edita um produto
+
+- DELETE /v1/produto/:id
+  Deleta o produto (Soft-delete)
