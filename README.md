@@ -21,6 +21,7 @@ classDiagram
     class Pedido {
         +id: int
         +dataHora: datetime
+        +dataHoraFechamento: datetime
         +status: string
     }
 
