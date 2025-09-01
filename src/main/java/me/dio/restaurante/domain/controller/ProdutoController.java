@@ -18,7 +18,7 @@ import me.dio.restaurante.domain.service.ProdutoService;
 @RequestMapping("/produto")
 @AllArgsConstructor
 public class ProdutoController {
-    private ProdutoService produtoService;
+    private final ProdutoService produtoService;
 
     @GetMapping("/")
     public ResponseEntity<List<Produto>> all(){
