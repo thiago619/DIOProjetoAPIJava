@@ -1,10 +1,11 @@
 package me.dio.restaurante.domain.model;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,10 +26,10 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy="pedido")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="pedido")
     private Set<PedidoProduto> pedidoProduto = new HashSet<>();
-    private Date abertoEm;
-    private Date fechadoEm;
+    private ZonedDateTime abertoEm;
+    private ZonedDateTime fechadoEm;
     @ManyToOne
     @JoinColumn(name="cupom_id")
     private CupomFiscal cupomFiscal;
