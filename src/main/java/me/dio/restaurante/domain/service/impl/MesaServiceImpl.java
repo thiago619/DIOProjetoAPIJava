@@ -29,6 +29,9 @@ public class MesaServiceImpl implements MesaService{
     @Override
     public Mesa create(Mesa mesa) {
         var mesaCriada = this.mesaRepository.save(mesa);
+        //Esse passo a mais criei para poder atualizar os campos anotados com @Formula,
+        //pois eles apenas atualizam com select, não com insert
+        mesaCriada = this.byId(mesaCriada.getId());
         return mesaCriada;
     }
 
