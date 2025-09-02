@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import me.dio.restaurante.domain.model.Pedido;
+import me.dio.restaurante.domain.model.Request.AddProdutotoPedidoRequest;
 import me.dio.restaurante.domain.model.Request.CreatePedidoRequest;
 import me.dio.restaurante.domain.service.PedidoService;
 
@@ -30,6 +31,12 @@ public class PedidoController {
     public ResponseEntity<List<Pedido>> all(){
         var pedidos = pedidoService.all();
         return ResponseEntity.ok(pedidos);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Pedido> addProduto(@RequestBody AddProdutotoPedidoRequest addProdutotoPedidoRequest){
+        var pedido = pedidoService.addProduto(addProdutotoPedidoRequest);
+        return ResponseEntity.ok(pedido);
     }
 
 }

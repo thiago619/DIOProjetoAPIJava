@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="pedido")
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy="pedido")
     private Set<PedidoProduto> pedidoProduto = new HashSet<>();
     private ZonedDateTime abertoEm;
     private ZonedDateTime fechadoEm;

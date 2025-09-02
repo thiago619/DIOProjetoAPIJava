@@ -1,5 +1,7 @@
 package me.dio.restaurante.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -16,6 +18,7 @@ import lombok.Setter;
 @Setter
 public class PedidoProduto {
     @EmbeddedId
+    @JsonIgnore
     private PedidoProdutoId id;
 
     @ManyToOne
@@ -24,6 +27,7 @@ public class PedidoProduto {
 
     @ManyToOne
     @MapsId("pedido_id")
+    @JsonIgnore
     private Pedido pedido;
 
     private Integer quantidade;
