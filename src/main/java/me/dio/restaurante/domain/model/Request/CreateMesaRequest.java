@@ -14,8 +14,8 @@ public class CreateMesaRequest {
     private Integer mesa;
 
     public Mesa toModel(){
-        Mesa mesa = new Mesa();
-        mesa.setMesa(this.mesa);
-        return mesa;
+        Mesa mesaa = new Mesa();
+        mesaa.setMesa(this.mesa);
+        return mesaa;
     }
 }
