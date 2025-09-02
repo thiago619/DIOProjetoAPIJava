@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import me.dio.restaurante.domain.model.Cliente;
+import me.dio.restaurante.domain.model.Request.CreateClienteRequest;
 import me.dio.restaurante.domain.service.ClienteService;
 
 @AllArgsConstructor
@@ -34,8 +35,8 @@ public class ClienteController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Cliente> create(@RequestBody Cliente cliente){
-        var clienteCriado = this.clienteService.create(cliente);
+    public ResponseEntity<Cliente> create(@RequestBody CreateClienteRequest cliente){
+        var clienteCriado = this.clienteService.create(cliente.toModel());
         return ResponseEntity.ok(clienteCriado);
     }
 

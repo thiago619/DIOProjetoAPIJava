@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import me.dio.restaurante.domain.model.Produto;
+import me.dio.restaurante.domain.model.Request.CreateProdutoRequest;
 import me.dio.restaurante.domain.service.ProdutoService;
 
 @RestController
@@ -33,8 +34,8 @@ public class ProdutoController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Produto> create(@RequestBody Produto produto){
-        var produtoCriado = this.produtoService.create(produto);
+    public ResponseEntity<Produto> create(@RequestBody CreateProdutoRequest produto){
+        var produtoCriado = this.produtoService.create(produto.toModel());
         return ResponseEntity.ok(produtoCriado);
     }
 }

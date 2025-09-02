@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import me.dio.restaurante.domain.model.Mesa;
+import me.dio.restaurante.domain.model.Request.CreateMesaRequest;
 import me.dio.restaurante.domain.service.MesaService;
 
 @RestController
@@ -33,8 +34,8 @@ public class MesaController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Mesa> create(@RequestBody Mesa mesa){
-        var mesaCriada = this.mesaService.create(mesa);
+    public ResponseEntity<Mesa> create(@RequestBody CreateMesaRequest mesa){
+        var mesaCriada = this.mesaService.create(mesa.toModel());
         return ResponseEntity.ok(mesaCriada);
     }
 }
