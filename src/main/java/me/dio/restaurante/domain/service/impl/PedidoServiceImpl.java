@@ -1,5 +1,6 @@
 package me.dio.restaurante.domain.service.impl;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import me.dio.restaurante.domain.exception.PedidoNotFoundException;
+import me.dio.restaurante.domain.model.CupomFiscal;
 import me.dio.restaurante.domain.model.Pedido;
 import me.dio.restaurante.domain.model.PedidoProduto;
 import me.dio.restaurante.domain.model.PedidoProdutoId;
@@ -16,6 +18,7 @@ import me.dio.restaurante.domain.model.Request.AddProdutotoPedidoRequest;
 import me.dio.restaurante.domain.model.Request.CreatePedidoRequest;
 import me.dio.restaurante.domain.repository.PedidoRepository;
 import me.dio.restaurante.domain.service.ClienteService;
+import me.dio.restaurante.domain.service.CupomFiscalService;
 import me.dio.restaurante.domain.service.MesaService;
 import me.dio.restaurante.domain.service.PedidoService;
 import me.dio.restaurante.domain.service.ProdutoService;
@@ -27,6 +30,7 @@ public class PedidoServiceImpl implements PedidoService {
     private final ClienteService clienteService;
     private final ProdutoService produtoService;
     private final PedidoRepository pedidoRepository;
+    private final CupomFiscalService cupomFiscalService;
 
     @Override
     public Pedido create(CreatePedidoRequest pedidoRequest) {
@@ -89,6 +93,20 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setFechadoEm(ZonedDateTime.now());
         this.pedidoRepository.saveAndFlush(pedido);
         pedido = this.pedidoRepository.findById(pedido_id).orElseThrow(NoSuchElementException::new);
+        return pedido;
+    }
+
+    @Override
+    public Pedido pagar(Long pedido_id) {
+        Pedido pedido = this.pedidoRepository.findById(pedido_id).orElseThrow(PedidoNotFoundException::new);
+        if(pedido.getFechadoEm() == null) throw new RuntimeException("Não é possível pagar um pedido que não foi fechado");
+        BigDecimal valor = pedido.getPedidoProduto().stream()
+        .map(pp -> pp.getProduto().getPreco().multiply(BigDecimal.valueOf(pp.getQuantidade())))
+        .reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        CupomFiscal cupomFiscal = this.cupomFiscalService.create(valor);
+        pedido.setCupomFiscal(cupomFiscal);
+        pedido = this.pedidoRepository.save(pedido);
         return pedido;
     }
 

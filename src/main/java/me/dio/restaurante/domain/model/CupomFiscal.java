@@ -1,7 +1,9 @@
 package me.dio.restaurante.domain.model;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class CupomFiscal {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private Number valor;
-    private Date dataEmissao;
+    @Column(precision=10,scale=2)
+    private BigDecimal valor;
+    private ZonedDateTime dataEmissao;
 }

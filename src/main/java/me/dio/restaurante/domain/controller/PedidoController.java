@@ -47,4 +47,10 @@ public class PedidoController {
         return ResponseEntity.ok(pedido);
     }
 
+    @PutMapping("/{id}/pagar")
+    public ResponseEntity<Pedido> pagar(@PathVariable Long id){
+        var pedido = this.pedidoService.pagar(id);
+        return ResponseEntity.ok(pedido);
+    }
+
 }
