@@ -31,4 +31,8 @@ public class PedidoProduto {
     private Pedido pedido;
 
     private Integer quantidade;
+
+    public Boolean equals(PedidoProduto another){
+        return this.getId() == another.getId();
+    }
 }

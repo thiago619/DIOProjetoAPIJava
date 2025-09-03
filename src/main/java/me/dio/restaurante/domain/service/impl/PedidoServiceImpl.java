@@ -21,7 +21,7 @@ import me.dio.restaurante.domain.service.ProdutoService;
 
 @Service
 @AllArgsConstructor
-public class PedidoServiceImpl implements PedidoService{
+public class PedidoServiceImpl implements PedidoService {
     private MesaService mesaService;
     private ClienteService clienteService;
     private ProdutoService produtoService;
@@ -31,7 +31,7 @@ public class PedidoServiceImpl implements PedidoService{
     public Pedido create(CreatePedidoRequest pedidoRequest) {
         var mesa = this.mesaService.byId(pedidoRequest.getMesa_id());
         var cliente = this.clienteService.byId(pedidoRequest.getCliente_id());
-        if(mesa.getAberta()){
+        if (mesa.getAberta()) {
             throw new RuntimeException("Não é possível marcar pedido pois a mesa já está aberta");
         }
         Pedido pedido = new Pedido();
@@ -50,19 +50,31 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     public Pedido addProduto(AddProdutotoPedidoRequest addProdutotoPedidoRequest) {
-        Pedido pedido = this.pedidoRepository.findById(addProdutotoPedidoRequest.getPedido_id()).orElseThrow(NoSuchElementException::new);
+        Pedido pedido = this.pedidoRepository.findById(addProdutotoPedidoRequest.getPedido_id())
+                .orElseThrow(NoSuchElementException::new);
         Produto produto = this.produtoService.byId(addProdutotoPedidoRequest.getProduto_id());
 
-        if(pedido.getFechadoEm() != null) throw new RuntimeException("Não pode adicionar item em um pedido fechado");
+        if (pedido.getFechadoEm() != null)
+            throw new RuntimeException("Não pode adicionar item em um pedido fechado");
         PedidoProdutoId pedidoProdutoId = new PedidoProdutoId();
         pedidoProdutoId.setPedido_id(addProdutotoPedidoRequest.getPedido_id());
         pedidoProdutoId.setProduto_id(addProdutotoPedidoRequest.getProduto_id());
-        PedidoProduto pedidoProduto = new PedidoProduto();
-        pedidoProduto.setProduto(produto);
-        pedidoProduto.setQuantidade(addProdutotoPedidoRequest.getQuantidade());
-        pedidoProduto.setPedido(pedido);
-        pedidoProduto.setId(pedidoProdutoId);
-        pedido.getPedidoProduto().add(pedidoProduto);
+        PedidoProduto pedidoProduto = pedido.getPedidoProduto().stream()
+                .filter(pp -> pp.getId().equals(pedidoProdutoId))
+                .findFirst()
+                .orElse(null);
+
+        if (pedidoProduto == null) {
+            pedidoProduto = new PedidoProduto();
+            pedidoProduto.setId(pedidoProdutoId);
+            pedidoProduto.setProduto(produto);
+            pedidoProduto.setPedido(pedido);
+            pedidoProduto.setQuantidade(addProdutotoPedidoRequest.getQuantidade());
+            pedido.getPedidoProduto().add(pedidoProduto);
+        } else {
+            pedidoProduto.setQuantidade(pedidoProduto.getQuantidade() + addProdutotoPedidoRequest.getQuantidade());
+        }
+
         pedido = this.pedidoRepository.saveAndFlush(pedido);
         return pedido;
 

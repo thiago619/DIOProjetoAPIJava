@@ -13,6 +13,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        hibernate.event.merge.entity_copy_observer: allow
   h2:
     console:
       enabled: true
