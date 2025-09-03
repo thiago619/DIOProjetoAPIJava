@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import me.dio.restaurante.domain.exception.PedidoNotFoundException;
 import me.dio.restaurante.domain.model.Pedido;
 import me.dio.restaurante.domain.model.PedidoProduto;
 import me.dio.restaurante.domain.model.PedidoProdutoId;
@@ -51,7 +52,7 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Pedido addProduto(AddProdutotoPedidoRequest addProdutotoPedidoRequest) {
         Pedido pedido = this.pedidoRepository.findById(addProdutotoPedidoRequest.getPedido_id())
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(PedidoNotFoundException::new);
         Produto produto = this.produtoService.byId(addProdutotoPedidoRequest.getProduto_id());
 
         if (pedido.getFechadoEm() != null)
@@ -82,7 +83,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido fechar(Long pedido_id) {
-        Pedido pedido = this.pedidoRepository.findById(pedido_id).orElseThrow(NoSuchElementException::new);
+        Pedido pedido = this.pedidoRepository.findById(pedido_id).orElseThrow(PedidoNotFoundException::new);
         if(pedido.getFechadoEm() != null) throw new RuntimeException("Não é possível fechar um pedido que já foi fechado");
         if(pedido.getPedidoProduto().isEmpty()) throw new RuntimeException("Não é possível fechar um pedido que não foi marcado nenhum item");
         pedido.setFechadoEm(ZonedDateTime.now());
