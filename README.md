@@ -83,4 +83,4 @@ stateDiagram-v2
 
 ## Deployment
 
-Há dpos perfil spring. dev para desenvolvimento e prd para produção. Para o perfil de produção, deve informar as váriaveis de ambiente do Banco de dados Postgresql. Esse projeto fui hospedado no Railway.
+Há dois perfis spring. Dev para desenvolvimento e prd para produção. Para o perfil de produção, deve informar as váriaveis de ambiente do Banco de dados Postgresql. Esse projeto fui hospedado no Railway.
