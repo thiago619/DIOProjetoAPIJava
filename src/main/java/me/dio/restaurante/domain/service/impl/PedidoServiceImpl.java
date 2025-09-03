@@ -22,10 +22,10 @@ import me.dio.restaurante.domain.service.ProdutoService;
 @Service
 @AllArgsConstructor
 public class PedidoServiceImpl implements PedidoService {
-    private MesaService mesaService;
-    private ClienteService clienteService;
-    private ProdutoService produtoService;
-    private PedidoRepository pedidoRepository;
+    private final MesaService mesaService;
+    private final ClienteService clienteService;
+    private final ProdutoService produtoService;
+    private final PedidoRepository pedidoRepository;
 
     @Override
     public Pedido create(CreatePedidoRequest pedidoRequest) {
