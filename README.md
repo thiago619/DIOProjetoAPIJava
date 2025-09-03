@@ -77,19 +77,10 @@ stateDiagram-v2
     Ocupada : Mesa em uso (pedido aberto)
 ```
 
-## Rotas
+## Links
 
-- GET /v1/produto
-  Lista todos os produtos
+[Documentação swagger](https://dioprojetoapijava-production.up.railway.app/swagger-ui/index.html)
 
-- GET /v1/produto/:id
-  Retorna um produto
+## Deployment
 
-- POST /v1/produto
-  Cria um produto
-
-- PUT /v1/produto/:id
-  Edita um produto
-
-- DELETE /v1/produto/:id
-  Deleta o produto (Soft-delete)
+Há dpos perfil spring. dev para desenvolvimento e prd para produção. Para o perfil de produção, deve informar as váriaveis de ambiente do Banco de dados Postgresql. Esse projeto fui hospedado no Railway.
