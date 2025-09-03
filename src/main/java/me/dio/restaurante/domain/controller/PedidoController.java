@@ -21,7 +21,7 @@ import me.dio.restaurante.domain.service.PedidoService;
 @AllArgsConstructor
 @RequestMapping("/pedido")
 public class PedidoController {
-    private PedidoService pedidoService;
+    private final PedidoService pedidoService;
 
     @PostMapping("/")
     public ResponseEntity<Pedido> create(@RequestBody CreatePedidoRequest pedidoRequest){
