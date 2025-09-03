@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +38,12 @@ public class PedidoController {
     @PostMapping("/add")
     public ResponseEntity<Pedido> addProduto(@RequestBody AddProdutotoPedidoRequest addProdutotoPedidoRequest){
         var pedido = pedidoService.addProduto(addProdutotoPedidoRequest);
+        return ResponseEntity.ok(pedido);
+    }
+
+    @PutMapping("/{id}/fechar")
+    public ResponseEntity<Pedido> fechar(@PathVariable Long id){
+        var pedido = this.pedidoService.fechar(id);
         return ResponseEntity.ok(pedido);
     }
 

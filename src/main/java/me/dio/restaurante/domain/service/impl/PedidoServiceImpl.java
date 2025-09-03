@@ -80,4 +80,15 @@ public class PedidoServiceImpl implements PedidoService {
 
     }
 
+    @Override
+    public Pedido fechar(Long pedido_id) {
+        Pedido pedido = this.pedidoRepository.findById(pedido_id).orElseThrow(NoSuchElementException::new);
+        if(pedido.getFechadoEm() != null) throw new RuntimeException("Não é possível fechar um pedido que já foi fechado");
+        if(pedido.getPedidoProduto().isEmpty()) throw new RuntimeException("Não é possível fechar um pedido que não foi marcado nenhum item");
+        pedido.setFechadoEm(ZonedDateTime.now());
+        this.pedidoRepository.saveAndFlush(pedido);
+        pedido = this.pedidoRepository.findById(pedido_id).orElseThrow(NoSuchElementException::new);
+        return pedido;
+    }
+
 }

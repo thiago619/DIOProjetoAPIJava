@@ -10,4 +10,5 @@ public interface PedidoService {
     public Pedido create(CreatePedidoRequest pedidoRequest);
     public List<Pedido> all();
     public Pedido addProduto(AddProdutotoPedidoRequest addProdutotoPedidoRequest);
+    public Pedido fechar(Long pedido_id);
 }
