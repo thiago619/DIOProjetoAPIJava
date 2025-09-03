@@ -1,11 +1,11 @@
 package me.dio.restaurante.domain.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import me.dio.restaurante.domain.exception.MesaNotFoundException;
 import me.dio.restaurante.domain.model.Mesa;
 import me.dio.restaurante.domain.repository.MesaRepository;
 import me.dio.restaurante.domain.service.MesaService;
@@ -22,7 +22,7 @@ public class MesaServiceImpl implements MesaService{
 
     @Override
     public Mesa byId(Long id) {
-        var mesa = this.mesaRepository.findById(id).orElseThrow(NoSuchElementException::new );
+        var mesa = this.mesaRepository.findById(id).orElseThrow(MesaNotFoundException::new);
         return mesa;
     }
 

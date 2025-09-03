@@ -1,11 +1,11 @@
 package me.dio.restaurante.domain.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import me.dio.restaurante.domain.exception.ProdutoNotFoundException;
 import me.dio.restaurante.domain.model.Produto;
 import me.dio.restaurante.domain.repository.ProdutoRepository;
 import me.dio.restaurante.domain.service.ProdutoService;
@@ -22,7 +22,7 @@ public class ProdutoServiceImpl implements ProdutoService{
 
     @Override
     public Produto byId(Long id) {
-        Produto produto = this.produtoRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Produto produto = this.produtoRepository.findById(id).orElseThrow(ProdutoNotFoundException::new);
         return produto;
     }
 
